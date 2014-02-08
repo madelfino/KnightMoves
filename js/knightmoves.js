@@ -1,4 +1,5 @@
 var board,
+    boardElem = $('#board'),
     start,
     dest;
 
@@ -19,6 +20,8 @@ function restart() {
     var pos = {};
     pos[start] = 'wN'
     board.position(pos, false);
+    boardElem.find('.square-55d63').removeClass('highlight');
+    boardElem.find('.square-' + dest).addClass('highlight');
 }
 
 var init = function() {
