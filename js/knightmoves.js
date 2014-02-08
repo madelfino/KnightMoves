@@ -1,8 +1,10 @@
 var board,
     boardElem = $('#board'),
     start = 'a1',
+    redoStart = undefined,
     cur = 'a1',
     dest = 'h8',
+    redoDest = undefined,
     numMoves = 0,
     minMoves = 1;
 
@@ -17,9 +19,11 @@ function randomSquare() {
 function restart() {
     numMoves = 0;
     $("#num_moves").text(numMoves);
-    start = randomSquare();
+    start = redoStart ? redoStart : randomSquare();
+    delete redoStart;
     cur = start;
-    dest = randomSquare();
+    dest = redoDest ? redoDest : randomSquare();
+    delete redoDest;
     while (start == dest) {
         dest = randomSquare();
     }
@@ -86,7 +90,10 @@ function onDrop(source, target) {
             if (numMoves == minMoves) {
                 alert('Great job!');
             } else {
-                alert('Good job, but you could have gotten there in fewer moves.');
+                if (window.confirm(('Good job, but you could have gotten there in fewer moves. Try again?'))) {
+                    redoStart = start;
+                    redoDest = dest;
+                }
             }
             restart();
         }, 100);
