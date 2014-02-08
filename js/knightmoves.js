@@ -1,7 +1,8 @@
 var board,
     boardElem = $('#board'),
-    start,
-    dest;
+    start = 'a1',
+    dest = 'h8',
+    numMoves = 0;
 
 function randomInt(min, max) {
     return Math.floor((Math.random()*(max-min+1))+min);
@@ -12,6 +13,8 @@ function randomSquare() {
 }
 
 function restart() {
+    numMoves = 0;
+    $("#num_moves").text(numMoves);
     start = randomSquare();
     dest = randomSquare();
     while (start == dest) {
@@ -24,13 +27,19 @@ function restart() {
     boardElem.find('.square-' + dest).addClass('highlight');
 }
 
+function onDrop() {
+    numMoves++;
+    $("#num_moves").text(numMoves);
+}
+
 var init = function() {
     board = new ChessBoard('board', {
         draggable: true,
-        showNotation: false
+        showNotation: false,
+        onDrop: onDrop
     });
     restart();
-
+    $("#num_moves").text(0);
     $('#start').click(function() {
         restart();
     });
