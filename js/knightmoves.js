@@ -74,7 +74,10 @@ function findMinMoves(source, target) {
 }
 
 function onDrop(source, target) {
-    if (generate_moves(source).indexOf(target) == -1) return 'snapback';
+    if (generate_moves(source).indexOf(target) == -1) {
+        alert("Whoops!  That's not a legal move.");
+        return 'snapback';
+    }
     numMoves++;
     $("#num_moves").text(numMoves);
     var pos = {};
