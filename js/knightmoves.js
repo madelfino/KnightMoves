@@ -20,10 +20,10 @@ function restart() {
     numMoves = 0;
     $("#num_moves").text(numMoves);
     start = redoStart ? redoStart : randomSquare();
-    delete redoStart;
+    redoStart = undefined;
     cur = start;
     dest = redoDest ? redoDest : randomSquare();
-    delete redoDest;
+    redoDest = undefined;
     while (start == dest) {
         dest = randomSquare();
     }
