@@ -1,0 +1,32 @@
+#first, #next, #prev, #last
+{
+    cursor: pointer;
+}
+
+header
+{
+    display: block;
+    height: 130px;
+}
+
+#content
+{
+    display: block;
+    height: 400px;
+}
+
+#board
+{
+    box-sizing:content-box;
+}
+
+#button_row
+{
+    display: block;
+    height: 40px;
+}
+
+body
+{
+    text-align: center;
+}
