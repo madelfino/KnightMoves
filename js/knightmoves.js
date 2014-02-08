@@ -24,7 +24,7 @@ function restart() {
         dest = randomSquare();
     }
     var pos = {};
-    pos[start] = 'wN'
+    pos[start] = 'wb'[randomInt(0,1)] + 'N'
     board.position(pos, false);
     boardElem.find('.square-55d63').removeClass('highlight');
     boardElem.find('.square-' + dest).addClass('highlight');
