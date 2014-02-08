@@ -28,6 +28,8 @@ function restart() {
     board.position(pos, false);
     boardElem.find('.square-55d63').removeClass('highlight');
     boardElem.find('.square-' + dest).addClass('highlight');
+    minMoves = findMinMoves(start, dest);
+    $("#min_moves").text(minMoves);
 }
 
 function generate_moves(square) {
@@ -53,6 +55,24 @@ function generate_moves(square) {
     return moves;
 }
 
+//Use Breadth-first search to find shortest path for knight
+function findMinMoves(source, target) {
+    if (source == target) return 0;
+    function generate_nodes(moves, depth) {
+        var nodes = [];
+        moves.forEach(function(move) {
+            nodes.push([move, depth]);
+        });
+        return nodes;
+    }
+    var queue = generate_nodes(generate_moves(source),1);
+    while(queue.length > 0) {
+        var node = queue.shift();
+        if (node[0] == target) return node[1];
+        queue = queue.concat(generate_nodes(generate_moves(node[0]),node[1]+1));
+    }
+}
+
 function onDrop(source, target) {
     if (generate_moves(source).indexOf(target) == -1) return 'snapback';
     numMoves++;
@@ -60,11 +80,11 @@ function onDrop(source, target) {
     var pos = {};
     if (target == dest) {
         setTimeout(function() {
-            //if (numMoves == minMoves) {
+            if (numMoves == minMoves) {
                 alert('Great job!');
-            //} else {
-                //alert('Good job, but you could have gotten there in fewer moves.');
-            //}
+            } else {
+                alert('Good job, but you could have gotten there in fewer moves.');
+            }
             restart();
         }, 100);
     }
